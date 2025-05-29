@@ -1,11 +1,13 @@
-version: '3'
+version: '3.7'
 
 services:
   mosquitto:
-    image: eclipse-mosquitto:latest
+    build: .
+    container_name: mosquitto_tls
     ports:
       - "8883:8883"
     volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ./mosquitto-certs:/mosquitto/config/certs
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./certs:/mosquitto/certs
+    restart: unless-stopped
 

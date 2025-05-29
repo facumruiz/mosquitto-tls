@@ -11,18 +11,12 @@ Este proyecto configura un broker MQTT (Mosquitto) con soporte TLS utilizando Do
 ## Cómo usar
 
 1. Genera tus certificados TLS y colócalos en la carpeta `certs/`:
-   - `mosquitto.crt` (certificado)
-       ```bash
-      openssl genrsa -out mosquitto.key 2048
-       
-   - `mosquitto.key` (clave privada)
      
      ```bash
-      openssl req -new -x509 -key mosquitto.key -out mosquitto.crt -days 365 \
-      -subj "/C=AR/ST=Buenos Aires/L=Buenos Aires/O=MiOrg/OU=IT/CN=localhost"
-
-  el `mosquitto.crt` y `mosquitto.key` deben de estar en la carpeta mosquitto-certs
-
+      chmod +x generate-certs.sh
+      ./generate-certs.sh
+      ```
+     
 2. Levanta el contenedor:
 
 ```bash
