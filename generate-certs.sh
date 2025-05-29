@@ -6,6 +6,7 @@ CA_CRT="$CERT_DIR/ca.crt"
 SERVER_KEY="$CERT_DIR/server.key"
 SERVER_CSR="$CERT_DIR/server.csr"
 SERVER_CRT="$CERT_DIR/server.crt"
+EXTFILE="$CERT_DIR/server_ext.cnf"
 
 # Crear carpeta si no existe
 mkdir -p "$CERT_DIR"
@@ -26,14 +27,19 @@ openssl req -new -key "$SERVER_KEY" \
   -subj "/C=AR/ST=BuenosAires/L=CABA/O=FacundoRP/CN=52.14.253.32" \
   -out "$SERVER_CSR"
 
-# Firmar el certificado del servidor con nuestra CA
+# Crear archivo de extensión con SAN
+cat > "$EXTFILE" <<EOF
+subjectAltName = IP:52.14.253.32
+EOF
+
+# Firmar el certificado del servidor con nuestra CA, agregando la extensión SAN
 openssl x509 -req -in "$SERVER_CSR" -CA "$CA_CRT" -CAkey "$CA_KEY" \
-  -CAcreateserial -out "$SERVER_CRT" -days 365 -sha256
+  -CAcreateserial -out "$SERVER_CRT" -days 365 -sha256 \
+  -extfile "$EXTFILE"
 
 # Limpiar archivos temporales
-rm -f "$SERVER_CSR"
+rm -f "$SERVER_CSR" "$EXTFILE"
 
 echo "✅ Certificados generados:"
 echo "- CA: $CA_CRT"
 echo "- Servidor: $SERVER_CRT"
-
