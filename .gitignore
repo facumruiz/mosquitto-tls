@@ -1,3 +1,4 @@
 # Ignorar certificados TLS
 certs/
 mosquitto-certs/
+node_modules/
