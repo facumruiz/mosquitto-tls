@@ -23,7 +23,7 @@ openssl genrsa -out "$SERVER_KEY" 2048
 
 # Crear CSR del servidor
 openssl req -new -key "$SERVER_KEY" \
-  -subj "/C=AR/ST=BuenosAires/L=CABA/O=FacundoRP/CN=localhost" \
+  -subj "/C=AR/ST=BuenosAires/L=CABA/O=FacundoRP/CN=52.14.253.32" \
   -out "$SERVER_CSR"
 
 # Firmar el certificado del servidor con nuestra CA
