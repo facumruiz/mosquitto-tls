@@ -24,12 +24,12 @@ openssl genrsa -out "$SERVER_KEY" 2048
 
 # Crear CSR del servidor
 openssl req -new -key "$SERVER_KEY" \
-  -subj "/C=AR/ST=BuenosAires/L=CABA/O=FacundoRP/CN=52.14.253.32" \
+  -subj "/C=AR/ST=BuenosAires/L=CABA/O=FacundoRP/CN=3.132.251.70" \
   -out "$SERVER_CSR"
 
 # Crear archivo de extensión con SAN
 cat > "$EXTFILE" <<EOF
-subjectAltName = IP:52.14.253.32
+subjectAltName = IP:3.132.251.70
 EOF
 
 # Firmar el certificado del servidor con nuestra CA, agregando la extensión SAN
